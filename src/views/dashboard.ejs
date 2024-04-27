@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav
+      class="flex h-10 items-center justify-center space-x-2 bg-green-800 px-8"
+    >
+      <form action="/logout" method="POST">
+        <button type="submit" class="text-white">Sign Out</button>
+      </form>
+      
+      <span class="text-white"> <%= user.username %> </span>
+    </nav>
+    <div id="chat"></div>
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button id="sendButton">Send</button>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:3000");
+
+      socket.addEventListener("open", () => {
+        console.log("Connected to WebSocket server");
+      });
+
+      socket.addEventListener("message", (event) => {
+        event.data.arrayBuffer().then((buffer) => {
+          const decoder = new TextDecoder("utf-8");
+          const message = decoder.decode(buffer);
+
+          const chatDiv = document.getElementById("chat");
+          const messageDiv = document.createElement("div");
+
+          messageDiv.textContent = `Received: ${message}`;
+
+          chatDiv.appendChild(messageDiv);
+        });
+      });
+
+      document.getElementById("sendButton").addEventListener("click", () => {
+        const input = document.getElementById("messageInput");
+        const message = input.value.trim() || "";
+
+        const chatDiv = document.getElementById("chat");
+        const messageDiv = document.createElement("div");
+
+        messageDiv.textContent = `You: ${message}`;
+
+        chatDiv.appendChild(messageDiv);
+
+        if (message !== "") {
+          socket.send(message);
+          input.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>

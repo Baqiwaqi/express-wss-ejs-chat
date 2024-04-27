@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/tailwind.css" />
+    <title>WebSocket Chat</title>
+  </head>
+  <body>
+    <main
+      class="flex h-[100vh] w-full items-center justify-center bg-slate-100"
+    >
+      <div class="w-1/3 rounded-lg bg-gray-100 p-4 shadow-lg">
+        <h2>Sign In</h2>
+        <form
+          action="/login/password"
+          method="post"
+          class="flex flex-col space-y-4"
+        >
+          <div class="flex flex-col">
+            <label for="username" class="label">Username</label>
+            <input
+              type="text"
+              class="input"
+              name="username"
+              placeholder="Username"
+              autocomplete="username"
+              autofocus
+              required
+            />
+          </div>
+          <div class="flex flex-col">
+            <label for="password" class="label">Password</label>
+            <input
+              class="input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          >
+            Login
+          </button>
+          <p class="mt-10 text-center text-sm text-gray-500">
+            Not a member yet?
+            <a
+              href="#"
+              class="font-semibold leading-6 text-blue-600 hover:text-blue-500"
+              >Sign Up</a
+            >
+          </p>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
